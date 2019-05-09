@@ -22,15 +22,15 @@ public class UserService {
         return userRepository.getById(userId);
     }
 
-    public boolean authenticateUser(ShitwishUser user) {
+    public ShitwishUser authenticateUser(ShitwishUser user) {
         ShitwishUser userToLogIn = userRepository.findByUserName(user.getUserName());
 
         if (userToLogIn != null){
             if (passwordEncoder.matches(user.getPassword(), userToLogIn.getPassword())){
-                return true;
+                return userToLogIn;
             }
         }
-        return false;
+        return null;
     }
 
 

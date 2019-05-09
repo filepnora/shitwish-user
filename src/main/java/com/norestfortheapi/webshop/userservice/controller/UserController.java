@@ -26,9 +26,12 @@ public class UserController {
 
     @PostMapping("/authentication")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public void authenticateUser(@RequestBody ShitwishUser user){
-        if (!userService.authenticateUser(user)) {
+    public ShitwishUser authenticateUser(@RequestBody ShitwishUser user){
+        ShitwishUser userToLogin = userService.authenticateUser(user);
+        if (userToLogin == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username os password is not correct!");
+        } else {
+            return userToLogin;
         }
     }
 
